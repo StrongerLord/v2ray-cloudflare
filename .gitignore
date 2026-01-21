@@ -1,0 +1,10 @@
+# Archivos sensibles
+.env
+credentials.json
+
+# Docker
+*.log
+
+# Sistema
+.DS_Store
+Thumbs.db

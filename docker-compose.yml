@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+    # V2Ray VMess WebSocket proxy server
+    proxy-server:
+        build:
+            context: .
+            args:
+                V2RAY_UUID: ${V2RAY_UUID}
+        container_name: proxy-salida
+        restart: unless-stopped
+        command: run -c /etc/v2ray/config.json
+        ports:
+            - "8080:8080"
+        networks:
+            - proxy-network
+
+    # Tunnel de Cloudflare para exponer el proxy
+    cloudflared:
+        image: cloudflare/cloudflared
+        container_name: cloudflared-tunnel
+        restart: unless-stopped
+        command: tunnel run --token ${TUNNEL_TOKEN}
+        environment:
+            - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+        depends_on:
+            - proxy-server
+        networks:
+            - proxy-network
+
+networks:
+    proxy-network:
+        driver: bridge
