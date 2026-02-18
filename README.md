@@ -24,7 +24,7 @@ A proxy server that lets you access blocked websites (Facebook, Instagram, etc.)
 ### 1. Clone this repo
 
 ```bash
-git clone <your-repo>
+git clone https://github.com/StrongerLord/v2ray-cloudflare.git
 cd proxy-nginx
 ```
 
